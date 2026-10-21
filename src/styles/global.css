@@ -1,0 +1,249 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './demos.css';
+@import './gallery.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* shadcn/ui Neutral 主题，预览内部的场景色与应用界面分开维护。 */
+:root {
+  --radius: 0.625rem;
+  --background: #f5f6f7;
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #d0f785;
+  --primary-foreground: #31481c;
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.94 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --green: #18181b;
+  --line: #e4e4e7;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  font-family: Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply m-0 bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+  button,
+  a,
+  input,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection {
+    background: #e4e4e7;
+  }
+}
+
+/* 场景画布独立保留动效 CSS，不影响 shadcn 组件。 */
+.preview-workspace {
+  background-color: #fafafa;
+  background-image: radial-gradient(#d4d4d8 0.65px, transparent 0.65px);
+  background-size: 16px 16px;
+  min-height: 400px;
+  padding: 28px 22px 22px;
+}
+.device {
+  border-color: #e4e4e7;
+  box-shadow: 0 8px 30px #18181b08;
+}
+.device-toolbar {
+  background: #fafafa;
+  color: #71717a;
+  font-size: 9px;
+  border-color: #e4e4e7;
+}
+.workspace-caption {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #71717a;
+}
+.player-controls {
+  border-bottom: 0;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+.run-status {
+  font-size: 11px;
+  color: #71717a;
+}
+.demo-surface {
+  color: #29322c;
+}
+.demo-surface button {
+  font-family: inherit;
+}
+.demo-surface button:focus-visible {
+  outline: 2px solid #52525b;
+  outline-offset: 3px;
+}
+.demo-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #27272a;
+  color: #fff;
+  padding: 9px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  min-height: 36px;
+  cursor: pointer;
+}
+.demo-primary:disabled {
+  background: #e4e4e7;
+  color: #a1a1aa;
+  cursor: not-allowed;
+}
+.demo-surface .text-button {
+  color: #52525b;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.demo-surface .eyebrow {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+.demo-surface .inline-error {
+  color: #b91c1c;
+}
+.mobile-device {
+  border-color: #27272a;
+}
+
+@media (max-width: 530px) {
+  .preview-workspace {
+    padding: 24px 12px 18px;
+    min-height: 350px;
+  }
+  .player-controls {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+  .mobile-device {
+    width: 274px;
+  }
+  .demo-surface h3 {
+    font-size: 18px;
+  }
+  .progress-demo {
+    padding: 28px 18px;
+  }
+  .skeleton-demo {
+    padding: 24px 17px;
+  }
+  .image-demo {
+    padding: 17px;
+  }
+  .upload-demo {
+    padding: 25px 13px;
+  }
+  .upload-photos {
+    gap: 5px;
+  }
+  .upload-photo {
+    height: 102px;
+  }
+  .message-demo {
+    padding: 16px 12px;
+  }
+  .message-composer input {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .ride-info {
+    padding: 17px;
+  }
+  .pagination-demo {
+    padding: 23px 14px;
+  }
+  .stream-demo {
+    padding: 20px 15px;
+  }
+}
